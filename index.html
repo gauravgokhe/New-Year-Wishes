@@ -5,7 +5,7 @@
 <title>Happy New Year 💖</title>
 
 <style>
-/* ========== THEME VARIABLES ========== */
+/* ================= THEME ================= */
 :root{
   --bg1:#ffe4ec;
   --bg2:#fff1f5;
@@ -21,7 +21,6 @@ body.night{
   --box-bg:rgba(0,0,0,0.45);
 }
 
-/* ========== RESET ========== */
 *{
   margin:0;
   padding:0;
@@ -36,7 +35,7 @@ body{
   transition:background 1.5s ease;
 }
 
-/* ========== STAR BACKGROUND ========== */
+/* ================= STARS ================= */
 #stars{
   position:fixed;
   inset:0;
@@ -50,24 +49,38 @@ body{
   height:2px;
   background:white;
   border-radius:50%;
-  opacity:0.6;
-  animation:twinkle linear infinite;
+  opacity:0.3;
+  animation:blinkStar ease-in-out infinite;
 }
 
-@keyframes twinkle{
-  0%,100%{opacity:0.2;}
-  50%{opacity:0.9;}
+@keyframes blinkStar{
+  0%{opacity:0.2; transform:scale(0.9);}
+  50%{opacity:0.9; transform:scale(1.2);}
+  100%{opacity:0.3; transform:scale(1);}
 }
 
-/* ========== EMOJI LAYER ========== */
+/* ================= EMOJI BACKGROUND ================= */
 #emoji-layer{
   position:fixed;
   inset:0;
-  pointer-events:none;
   z-index:1;
+  pointer-events:none;
 }
 
-/* ========== MUSIC BOX ========== */
+.emoji{
+  position:absolute;
+  bottom:-40px;
+  opacity:0.75;
+  animation:floatUp linear forwards;
+}
+
+@keyframes floatUp{
+  from{transform:translateY(0) scale(0.7); opacity:0;}
+  20%{opacity:1;}
+  to{transform:translateY(-120vh) scale(1.4); opacity:0;}
+}
+
+/* ================= MUSIC BOX ================= */
 .music-box{
   position:fixed;
   top:20px;
@@ -81,11 +94,9 @@ body{
   border-radius:28px;
   padding:18px 22px;
   display:flex;
-  align-items:center;
   justify-content:space-between;
-  gap:16px;
+  align-items:center;
   z-index:10;
-  transition:background 1.5s ease;
 }
 
 .music-left{
@@ -107,28 +118,28 @@ body{
   border-radius:50%;
   border:none;
   background:var(--accent);
-  color:white;
+  color:#fff;
   font-size:22px;
   cursor:pointer;
 }
 
 .toggle{
-  background:transparent;
+  background:none;
   border:none;
   font-size:22px;
   cursor:pointer;
   color:white;
 }
 
-/* ========== SECTIONS ========== */
+/* ================= SECTIONS ================= */
 section{
   min-height:100vh;
   display:flex;
   justify-content:center;
   align-items:center;
   padding-top:180px;
-  position:relative;
   z-index:5;
+  position:relative;
 }
 
 .card{
@@ -139,7 +150,6 @@ section{
   padding:50px 40px;
   border-radius:32px;
   text-align:center;
-  transition:background 1.5s ease;
 }
 
 .card h1{
@@ -166,18 +176,12 @@ section{
   display:none;
   margin-top:30px;
   font-size:1.3rem;
-  line-height:1.6;
 }
 
-/* ========== GIF SLIDER ========== */
+/* ================= GIF SLIDER ================= */
 .gif-section{
   flex-direction:column;
   padding:70px 0 120px;
-}
-
-.gif-section h2{
-  font-size:2.1rem;
-  margin-bottom:36px;
 }
 
 .gif-slider-container{
@@ -207,29 +211,23 @@ section{
   transform:scale(1);
 }
 
-/* ========== FLOATING EMOJIS ========== */
-.emoji{
-  position:absolute;
-  bottom:-40px;
-  animation:floatUp linear forwards;
-  opacity:0.8;
+/* ================= CURSOR MUSIC HEART ================= */
+.cursor-heart{
+  position:fixed;
+  pointer-events:none;
+  z-index:3;
+  opacity:0.85;
+  animation:heartFade 1.6s ease-out forwards;
 }
 
-@keyframes floatUp{
-  from{
-    transform:translateY(0) scale(0.7);
-    opacity:0;
-  }
-  20%{opacity:1;}
-  to{
-    transform:translateY(-120vh) scale(1.4);
-    opacity:0;
-  }
+@keyframes heartFade{
+  from{transform:scale(0.8); opacity:0.9;}
+  to{transform:scale(2); opacity:0;}
 }
 
-/* ========== MOBILE ========== */
+/* ================= MOBILE ================= */
 @media(max-width:600px){
-  .gif-slider img{height:280px;}
+  .gif-slider img{height:260px;}
   .card h1{font-size:2.2rem;}
 }
 </style>
@@ -237,32 +235,29 @@ section{
 
 <body>
 
-<!-- ✨ STARS -->
 <div id="stars"></div>
-
-<!-- 💖 EMOJIS -->
 <div id="emoji-layer"></div>
 
-<!-- 🎵 MUSIC -->
+<!-- MUSIC -->
 <div class="music-box">
   <div class="music-left">
-    <img src="songcover.jpg">
+    <img src="song-cover.jpg">
     <button onclick="togglePlay()" id="playBtn">▶</button>
   </div>
   <button class="toggle" onclick="toggleTheme()" id="themeBtn">🌙</button>
 </div>
 
-<!-- 💌 WISH -->
+<!-- WISH -->
 <section>
   <div class="card">
     <h1>Happy New Year 💖</h1>
-    <p>To the one who makes my heart feel calm & loved ✨</p>
+    <p>To the one who makes my heart feel safe & loved ✨</p>
     <button onclick="showLove()">Open my wish 💌</button>
     <div class="message" id="loveMsg"></div>
   </div>
 </section>
 
-<!-- 🎞 GIFS -->
+<!-- GIFS -->
 <section class="gif-section">
   <h2>Us, in little moments 💕</h2>
   <div class="gif-slider-container">
@@ -271,41 +266,42 @@ section{
 </section>
 
 <audio id="loveSong">
-  <source src="Dooron.mp3" type="audio/mpeg">
+  <source src="your-song.mp3" type="audio/mpeg">
 </audio>
 
 <script>
-/* ===== DATA ===== */
+/* ================= DATA ================= */
 const DATA={
   songStart:60,
   wishes:[
-    "I choose you — in every lifetime 💖",
-    "You feel like home to me 🏡💕",
+    "I choose you — always 💖",
+    "You feel like home 🏡💕",
     "With you, love feels gentle ✨",
     "Another year, still us 💘"
   ],
-  gifs:["gif3.gif","gif2.gif","gif5.gif","gif6.gif","gif4.gif","gif1.gif"],
+  gifs:["gif3.gif","gif2.gif","gif5.gif","gif6.gif","gif4.gif","gif7.gif"],
   emojis:["💖","💕","💘","🌸","✨","💗","🦋"]
 };
 
-/* ===== STARS ===== */
+/* ================= STARS ================= */
 const stars=document.getElementById("stars");
 for(let i=0;i<80;i++){
   const s=document.createElement("div");
   s.className="star";
   s.style.left=Math.random()*100+"vw";
   s.style.top=Math.random()*100+"vh";
-  s.style.animationDuration=(3+Math.random()*5)+"s";
+  s.style.animationDuration=(4+Math.random()*6)+"s";
+  s.style.animationDelay=Math.random()*5+"s";
   stars.appendChild(s);
 }
 
-/* ===== AUTO DAY ➜ NIGHT SWITCH ===== */
+/* ================= AUTO NIGHT ================= */
 setTimeout(()=>{
   document.body.classList.add("night");
   document.getElementById("themeBtn").innerText="☀️";
-},5000); // 🌙 after 6 seconds
+},6000);
 
-/* ===== AUDIO + EMOJIS ===== */
+/* ================= AUDIO + EMOJIS ================= */
 const audio=document.getElementById("loveSong");
 const playBtn=document.getElementById("playBtn");
 const emojiLayer=document.getElementById("emoji-layer");
@@ -318,10 +314,12 @@ function togglePlay(){
     audio.play();
     playBtn.innerHTML="⏸";
     startEmojis();
+    musicActive=true;
   }else{
     audio.pause();
     playBtn.innerHTML="▶";
     stopEmojis();
+    musicActive=false;
   }
 }
 
@@ -332,10 +330,10 @@ function startEmojis(){
     e.className="emoji";
     e.innerText=DATA.emojis[Math.floor(Math.random()*DATA.emojis.length)];
     e.style.left=Math.random()*100+"vw";
-    e.style.fontSize=(24+Math.random()*26)+"px";
+    e.style.fontSize=(24+Math.random()*24)+"px";
     e.style.animationDuration=(9+Math.random()*6)+"s";
     emojiLayer.appendChild(e);
-    setTimeout(()=>e.remove(),17000);
+    setTimeout(()=>e.remove(),16000);
   },700);
 }
 
@@ -344,14 +342,14 @@ function stopEmojis(){
   emojiInterval=null;
 }
 
-/* ===== WISH ===== */
+/* ================= WISH ================= */
 function showLove(){
   const msg=DATA.wishes[Math.floor(Math.random()*DATA.wishes.length)];
   document.getElementById("loveMsg").innerText=msg;
   document.getElementById("loveMsg").style.display="block";
 }
 
-/* ===== GIF SLIDER ===== */
+/* ================= GIF SLIDER ================= */
 const gifSlider=document.getElementById("gifSlider");
 let gifIndex=0;
 
@@ -370,14 +368,51 @@ function updateGif(){
 setInterval(()=>{gifIndex=(gifIndex+1)%gifs.length;updateGif();},4500);
 updateGif();
 
-/* ===== MANUAL NIGHT TOGGLE ===== */
+/* ================= NIGHT TOGGLE ================= */
 function toggleTheme(){
   document.body.classList.toggle("night");
   document.getElementById("themeBtn").innerText=
     document.body.classList.contains("night") ? "☀️" : "🌙";
 }
+
+/* ================= MUSIC SYNC CURSOR HEART ================= */
+let cursorX=innerWidth/2, cursorY=innerHeight/2;
+let musicActive=false;
+
+document.addEventListener("mousemove",e=>{cursorX=e.clientX;cursorY=e.clientY;});
+document.addEventListener("touchmove",e=>{
+  const t=e.touches[0];
+  cursorX=t.clientX; cursorY=t.clientY;
+});
+
+const audioCtx=new (window.AudioContext||window.webkitAudioContext)();
+const src=audioCtx.createMediaElementSource(audio);
+const analyser=audioCtx.createAnalyser();
+src.connect(analyser);
+analyser.connect(audioCtx.destination);
+analyser.fftSize=256;
+const dataArray=new Uint8Array(analyser.frequencyBinCount);
+
+document.addEventListener("click",()=>{
+  if(audioCtx.state==="suspended") audioCtx.resume();
+});
+
+setInterval(()=>{
+  if(!musicActive) return;
+  analyser.getByteFrequencyData(dataArray);
+  const energy=dataArray.reduce((a,b)=>a+b,0)/dataArray.length;
+  if(energy>90){
+    const h=document.createElement("div");
+    h.className="cursor-heart";
+    h.innerText="💗";
+    h.style.left=cursorX+"px";
+    h.style.top=cursorY+"px";
+    h.style.fontSize=(16+energy/6)+"px";
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(),1600);
+  }
+},120);
 </script>
 
 </body>
 </html>
-
