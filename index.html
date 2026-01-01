@@ -2,16 +2,14 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Happy New Year 💖</title>
+<title>For You 💖</title>
 
 <style>
-/* ================= THEME ================= */
 :root{
   --bg1:#ffe4ec;
   --bg2:#fff1f5;
   --accent:#ff6f91;
   --box-bg:rgba(255,255,255,0.35);
-  --text:#ffffff;
 }
 
 body.night{
@@ -21,215 +19,118 @@ body.night{
   --box-bg:rgba(0,0,0,0.45);
 }
 
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:'Segoe UI',sans-serif;
-}
-
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif;}
 body{
   background:linear-gradient(135deg,var(--bg1),var(--bg2));
-  color:var(--text);
+  color:#fff;
   overflow-x:hidden;
   transition:background 1.5s ease;
 }
 
-/* ================= STARS ================= */
-#stars{
-  position:fixed;
-  inset:0;
-  z-index:0;
-  pointer-events:none;
-}
-
+/* ⭐ STARS */
+#stars{position:fixed;inset:0;z-index:0;pointer-events:none;}
 .star{
-  position:absolute;
-  width:2px;
-  height:2px;
-  background:white;
-  border-radius:50%;
-  opacity:0.3;
-  animation:blinkStar ease-in-out infinite;
+  position:absolute;width:2px;height:2px;background:white;border-radius:50%;
+  opacity:.3;animation:blink 4s ease-in-out infinite;
+}
+@keyframes blink{
+  0%,100%{opacity:.2;transform:scale(.9);}
+  50%{opacity:.9;transform:scale(1.2);}
 }
 
-@keyframes blinkStar{
-  0%{opacity:0.2; transform:scale(0.9);}
-  50%{opacity:0.9; transform:scale(1.2);}
-  100%{opacity:0.3; transform:scale(1);}
-}
-
-/* ================= EMOJI BACKGROUND ================= */
-#emoji-layer{
-  position:fixed;
-  inset:0;
-  z-index:1;
-  pointer-events:none;
-}
-
+/* ❤️ EMOJIS */
+#emoji-layer{position:fixed;inset:0;pointer-events:none;z-index:1;}
 .emoji{
-  position:absolute;
-  bottom:-40px;
-  opacity:0.75;
+  position:absolute;bottom:-40px;
   animation:floatUp linear forwards;
 }
-
 @keyframes floatUp{
-  from{transform:translateY(0) scale(0.7); opacity:0;}
+  from{transform:translateY(0) scale(.7);opacity:0;}
   20%{opacity:1;}
-  to{transform:translateY(-120vh) scale(1.4); opacity:0;}
+  to{transform:translateY(-120vh) scale(1.4);opacity:0;}
 }
 
-/* ================= MUSIC BOX ================= */
+/* 🎵 MUSIC BOX */
 .music-box{
-  position:fixed;
-  top:20px;
-  left:50%;
-  transform:translateX(-50%);
-  width:92%;
-  max-width:560px;
-  height:100px;
-  background:var(--box-bg);
-  backdrop-filter:blur(18px);
-  border-radius:28px;
-  padding:18px 22px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  z-index:10;
+  position:sticky;top:20px;margin:20px auto;
+  width:92%;max-width:520px;height:100px;
+  background:var(--box-bg);backdrop-filter:blur(18px);
+  border-radius:26px;padding:18px;
+  display:flex;justify-content:space-between;align-items:center;
+  z-index:5;
 }
-
-.music-left{
-  display:flex;
-  align-items:center;
-  gap:16px;
-}
-
-.music-box img{
-  width:68px;
-  height:68px;
-  border-radius:16px;
-  object-fit:cover;
-}
-
+.music-left{display:flex;align-items:center;gap:16px;}
+.music-box img{width:68px;height:68px;border-radius:16px;object-fit:cover;}
 .music-box button{
-  width:54px;
-  height:54px;
-  border-radius:50%;
-  border:none;
-  background:var(--accent);
-  color:#fff;
-  font-size:22px;
-  cursor:pointer;
+  width:54px;height:54px;border-radius:50%;
+  border:none;background:var(--accent);color:#fff;font-size:22px;
 }
+.toggle{background:none;border:none;color:#fff;font-size:22px;}
 
-.toggle{
-  background:none;
-  border:none;
-  font-size:22px;
-  cursor:pointer;
-  color:white;
-}
-
-/* ================= SECTIONS ================= */
+/* 📦 SECTIONS */
 section{
   min-height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  padding-top:180px;
-  z-index:5;
-  position:relative;
+  display:flex;justify-content:center;align-items:center;
+  position:relative;z-index:3;
 }
-
 .card{
-  width:92%;
-  max-width:560px;
-  background:var(--box-bg);
-  backdrop-filter:blur(18px);
-  padding:50px 40px;
-  border-radius:32px;
-  text-align:center;
+  width:90%;max-width:520px;
+  background:var(--box-bg);backdrop-filter:blur(18px);
+  padding:50px 36px;border-radius:30px;text-align:center;
 }
-
-.card h1{
-  font-size:2.6rem;
-  margin-bottom:14px;
-}
-
-.card p{
-  font-size:1.2rem;
-  margin-bottom:30px;
-}
-
+.card h1{font-size:2.4rem;margin-bottom:12px;}
+.card p{font-size:1.1rem;margin-bottom:26px;}
 .card button{
-  padding:16px 38px;
-  border-radius:40px;
-  border:none;
-  background:var(--accent);
-  color:#fff;
-  font-size:1.1rem;
-  cursor:pointer;
+  padding:14px 34px;border-radius:40px;border:none;
+  background:var(--accent);color:#fff;font-size:1.05rem;
 }
 
-.message{
-  display:none;
-  margin-top:30px;
-  font-size:1.3rem;
+/* 🎈 BALLOONS */
+.balloon{
+  position:fixed;bottom:-120px;width:60px;height:80px;
+  background:radial-gradient(circle at 30% 30%, #fff, #ff7aa2);
+  border-radius:50% 50% 45% 45%;
+  animation:floatBalloon linear forwards;
+  cursor:pointer;z-index:4;
+}
+.balloon::after{
+  content:"";position:absolute;bottom:-20px;left:50%;
+  width:2px;height:20px;background:#fff;transform:translateX(-50%);
+}
+@keyframes floatBalloon{to{transform:translateY(-120vh);}}
+.pop{animation:pop .3s ease forwards;}
+@keyframes pop{to{transform:scale(1.8);opacity:0;}}
+.pop-emoji{
+  position:fixed;font-size:22px;pointer-events:none;
+  animation:burst 1.4s ease forwards;z-index:5;
+}
+@keyframes burst{
+  to{transform:translate(var(--x),var(--y)) scale(1.4);opacity:0;}
 }
 
-/* ================= GIF SLIDER ================= */
-.gif-section{
-  flex-direction:column;
-  padding:70px 0 120px;
+/* 🧻 PAPER REVEAL */
+.reveal{
+  width:90%;max-width:380px;height:520px;
+  position:relative;border-radius:28px;overflow:hidden;
+}
+.reveal img{width:100%;height:100%;object-fit:cover;}
+.paper{
+  position:absolute;inset:0;background:#fff;color:#333;
+  display:flex;align-items:center;justify-content:center;
+  cursor:grab;font-size:1.1rem;
+}
+.final-text{
+  position:absolute;bottom:20px;left:50%;
+  transform:translateX(-50%);opacity:0;font-size:1.3rem;
 }
 
-.gif-slider-container{
-  width:94%;
-  max-width:620px;
-  overflow:hidden;
-}
-
-.gif-slider{
-  display:flex;
-  transition:transform 1s ease;
-}
-
+/* 🎞️ GIFS */
+.gif-slider{display:flex;transition:transform 1s ease;}
 .gif-slider img{
-  width:100%;
-  height:380px;
-  object-fit:cover;
-  border-radius:34px;
-  flex-shrink:0;
-  opacity:0.45;
-  transform:scale(0.9);
-  transition:all 1s ease;
+  width:100%;height:360px;object-fit:cover;border-radius:30px;
+  opacity:.45;transform:scale(.9);transition:.8s;
 }
-
-.gif-slider img.active{
-  opacity:1;
-  transform:scale(1);
-}
-
-/* ================= CURSOR MUSIC HEART ================= */
-.cursor-heart{
-  position:fixed;
-  pointer-events:none;
-  z-index:3;
-  opacity:0.85;
-  animation:heartFade 1.6s ease-out forwards;
-}
-
-@keyframes heartFade{
-  from{transform:scale(0.8); opacity:0.9;}
-  to{transform:scale(2); opacity:0;}
-}
-
-/* ================= MOBILE ================= */
-@media(max-width:600px){
-  .gif-slider img{height:260px;}
-  .card h1{font-size:2.2rem;}
-}
+.gif-slider img.active{opacity:1;transform:scale(1);}
 </style>
 </head>
 
@@ -238,7 +139,7 @@ section{
 <div id="stars"></div>
 <div id="emoji-layer"></div>
 
-<!-- MUSIC -->
+<!-- 🎵 MUSIC -->
 <div class="music-box">
   <div class="music-left">
     <img src="songcover.jpg">
@@ -247,70 +148,58 @@ section{
   <button class="toggle" onclick="toggleTheme()" id="themeBtn">🌙</button>
 </div>
 
-<!-- WISH -->
+<!-- 🎈 BALLOON GAME -->
+<section><h1>Tap the balloons 🎈</h1></section>
+
+<!-- 💌 WISH -->
 <section>
   <div class="card">
     <h1>Happy New Year 💖</h1>
-    <p>To the one who makes my heart feel safe & loved ✨</p>
-    <button onclick="showLove()">Open my wish 💌</button>
-    <div class="message" id="loveMsg"></div>
+    <p>You make my days softer and my nights warmer ✨</p>
+    <button onclick="showWish()">Open my wish</button>
+    <div id="wishText"></div>
   </div>
 </section>
 
-<!-- GIFS -->
-<section class="gif-section">
-  <h2>Us, in little moments 💕</h2>
-  <div class="gif-slider-container">
+<!-- 🧻 PAPER REVEAL -->
+<section>
+  <div class="reveal">
+    <img src="final.jpg">
+    <div class="paper" id="paper">Drag this slowly 🤍</div>
+    <div class="final-text" id="finalText">This is my favorite part 💖</div>
+  </div>
+</section>
+
+<!-- 🎞️ GIFS -->
+<section>
+  <div style="width:90%;max-width:600px;overflow:hidden">
     <div class="gif-slider" id="gifSlider"></div>
   </div>
 </section>
 
-<audio id="loveSong">
-  <source src="Dooron.mp3" type="audio/mpeg">
+<audio id="loveSong" preload="auto" playsinline>
+  <source src="your-song.mp3" type="audio/mpeg">
 </audio>
 
 <script>
-/* ================= DATA ================= */
-const DATA={
-  songStart:60,
-  wishes:[
-    "I choose you — always 💖",
-    "You feel like home 🏡💕",
-    "With you, love feels gentle ✨",
-    "Another year, still us 💘"
-  ],
-  gifs:["gif3.gif","gif2.gif","gif5.gif","gif6.gif","gif4.gif","gif7.gif"],
-  emojis:["💖","💕","💘","🌸","✨","💗","🦋"]
-};
-
-/* ================= STARS ================= */
-const stars=document.getElementById("stars");
+/* ⭐ STARS */
 for(let i=0;i<80;i++){
-  const s=document.createElement("div");
+  let s=document.createElement("div");
   s.className="star";
   s.style.left=Math.random()*100+"vw";
   s.style.top=Math.random()*100+"vh";
-  s.style.animationDuration=(4+Math.random()*6)+"s";
-  s.style.animationDelay=Math.random()*5+"s";
-  stars.appendChild(s);
+  s.style.animationDuration=3+Math.random()*5+"s";
+  document.getElementById("stars").appendChild(s);
 }
 
-/* ================= AUTO NIGHT ================= */
-setTimeout(()=>{
-  document.body.classList.add("night");
-  document.getElementById("themeBtn").innerText="☀️";
-},6000);
-
-/* ================= AUDIO + EMOJIS ================= */
+/* 🎵 AUDIO */
 const audio=document.getElementById("loveSong");
 const playBtn=document.getElementById("playBtn");
-const emojiLayer=document.getElementById("emoji-layer");
-let emojiInterval=null;
+let musicActive=false;
 
 function togglePlay(){
   if(audio.paused){
-    audio.currentTime=DATA.songStart;
-    audio.volume=0.8;
+    audio.currentTime=60;
     audio.play();
     playBtn.innerHTML="⏸";
     startEmojis();
@@ -318,102 +207,97 @@ function togglePlay(){
   }else{
     audio.pause();
     playBtn.innerHTML="▶";
-    stopEmojis();
     musicActive=false;
   }
 }
 
+/* ❤️ EMOJIS */
 function startEmojis(){
-  if(emojiInterval) return;
-  emojiInterval=setInterval(()=>{
+  setInterval(()=>{
+    if(!musicActive) return;
     const e=document.createElement("div");
     e.className="emoji";
-    e.innerText=DATA.emojis[Math.floor(Math.random()*DATA.emojis.length)];
+    e.innerText=["💖","✨","🌸","💗","🦋"][Math.floor(Math.random()*5)];
     e.style.left=Math.random()*100+"vw";
-    e.style.fontSize=(24+Math.random()*24)+"px";
-    e.style.animationDuration=(9+Math.random()*6)+"s";
-    emojiLayer.appendChild(e);
-    setTimeout(()=>e.remove(),16000);
+    e.style.fontSize=24+Math.random()*24+"px";
+    e.style.animationDuration=8+Math.random()*6+"s";
+    document.getElementById("emoji-layer").appendChild(e);
+    setTimeout(()=>e.remove(),15000);
   },700);
 }
 
-function stopEmojis(){
-  clearInterval(emojiInterval);
-  emojiInterval=null;
-}
-
-/* ================= WISH ================= */
-function showLove(){
-  const msg=DATA.wishes[Math.floor(Math.random()*DATA.wishes.length)];
-  document.getElementById("loveMsg").innerText=msg;
-  document.getElementById("loveMsg").style.display="block";
-}
-
-/* ================= GIF SLIDER ================= */
-const gifSlider=document.getElementById("gifSlider");
-let gifIndex=0;
-
-DATA.gifs.forEach(src=>{
-  const img=document.createElement("img");
-  img.src=src;
-  gifSlider.appendChild(img);
-});
-
-const gifs=document.querySelectorAll(".gif-slider img");
-
-function updateGif(){
-  gifSlider.style.transform=`translateX(-${gifIndex*100}%)`;
-  gifs.forEach((g,i)=>g.classList.toggle("active",i===gifIndex));
-}
-setInterval(()=>{gifIndex=(gifIndex+1)%gifs.length;updateGif();},4500);
-updateGif();
-
-/* ================= NIGHT TOGGLE ================= */
-function toggleTheme(){
-  document.body.classList.toggle("night");
-  document.getElementById("themeBtn").innerText=
-    document.body.classList.contains("night") ? "☀️" : "🌙";
-}
-
-/* ================= MUSIC SYNC CURSOR HEART ================= */
-let cursorX=innerWidth/2, cursorY=innerHeight/2;
-let musicActive=false;
-
-document.addEventListener("mousemove",e=>{cursorX=e.clientX;cursorY=e.clientY;});
-document.addEventListener("touchmove",e=>{
-  const t=e.touches[0];
-  cursorX=t.clientX; cursorY=t.clientY;
-});
-
-const audioCtx=new (window.AudioContext||window.webkitAudioContext)();
-const src=audioCtx.createMediaElementSource(audio);
-const analyser=audioCtx.createAnalyser();
-src.connect(analyser);
-analyser.connect(audioCtx.destination);
-analyser.fftSize=256;
-const dataArray=new Uint8Array(analyser.frequencyBinCount);
-
-document.addEventListener("click",()=>{
-  if(audioCtx.state==="suspended") audioCtx.resume();
-});
-
+/* 🎈 BALLOONS */
 setInterval(()=>{
   if(!musicActive) return;
-  analyser.getByteFrequencyData(dataArray);
-  const energy=dataArray.reduce((a,b)=>a+b,0)/dataArray.length;
-  if(energy>90){
-    const h=document.createElement("div");
-    h.className="cursor-heart";
-    h.innerText="💗";
-    h.style.left=cursorX+"px";
-    h.style.top=cursorY+"px";
-    h.style.fontSize=(16+energy/6)+"px";
-    document.body.appendChild(h);
-    setTimeout(()=>h.remove(),1600);
+  const b=document.createElement("div");
+  b.className="balloon";
+  b.style.left=Math.random()*90+"vw";
+  b.style.animationDuration=10+Math.random()*6+"s";
+  b.onclick=()=>pop(b);
+  document.body.appendChild(b);
+  setTimeout(()=>b.remove(),16000);
+},4500);
+
+function pop(b){
+  b.classList.add("pop");
+  const r=b.getBoundingClientRect();
+  for(let i=0;i<6;i++){
+    const e=document.createElement("div");
+    e.className="pop-emoji";
+    e.innerText=["💖","✨","🦋"][Math.floor(Math.random()*3)];
+    e.style.left=r.left+r.width/2+"px";
+    e.style.top=r.top+"px";
+    e.style.setProperty("--x",(Math.random()*160-80)+"px");
+    e.style.setProperty("--y",(Math.random()*160-80)+"px");
+    document.body.appendChild(e);
+    setTimeout(()=>e.remove(),1400);
   }
-},120);
+}
+
+/* 💌 WISH */
+function showWish(){
+  document.getElementById("wishText").innerText="I’m really glad it’s you 💕";
+}
+
+/* 🧻 PAPER DRAG */
+let startX=0;
+const paper=document.getElementById("paper");
+paper.onmousedown=e=>startX=e.clientX;
+document.onmousemove=e=>{
+  if(!startX) return;
+  let dx=e.clientX-startX;
+  paper.style.transform=`translateX(${dx}px)`;
+  if(dx>220){
+    paper.style.display="none";
+    document.getElementById("finalText").style.opacity=1;
+    startX=0;
+  }
+};
+document.onmouseup=()=>startX=0;
+
+/* 🎞 GIFS */
+const gifs=["gif3.gif","gif2.gif","gif5.gif","gif6.gif","gif4.gif","gif7.gif"];
+let gi=0;
+const slider=document.getElementById("gifSlider");
+gifs.forEach(g=>{
+  const i=document.createElement("img");
+  i.src=g;slider.appendChild(i);
+});
+setInterval(()=>{
+  gi=(gi+1)%gifs.length;
+  slider.style.transform=`translateX(-${gi*100}%)`;
+  document.querySelectorAll(".gif-slider img").forEach((g,i)=>{
+    g.classList.toggle("active",i===gi);
+  });
+},4500);
+
+/* 🌙 THEME */
+function toggleTheme(){
+  document.body.classList.toggle("night");
+  themeBtn.innerText=document.body.classList.contains("night")?"☀️":"🌙";
+}
+setTimeout(()=>document.body.classList.add("night"),6000);
 </script>
 
 </body>
 </html>
-
