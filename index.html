@@ -38,7 +38,7 @@ body{
   50%{opacity:.9;transform:scale(1.2);}
 }
 
-/* ❤️ EMOJIS */
+/* ❤️ EMOJIS BACKGROUND */
 #emoji-layer{position:fixed;inset:0;pointer-events:none;z-index:1;}
 .emoji{
   position:absolute;bottom:-40px;
@@ -73,6 +73,39 @@ section{
   display:flex;justify-content:center;align-items:center;
   position:relative;z-index:3;
 }
+
+/* 🎈 BALLOONS */
+.balloon{
+  position:fixed;
+  bottom:-120px;
+  width:60px;height:80px;
+  background:radial-gradient(circle at 30% 30%, #fff, #ff7aa2);
+  border-radius:50% 50% 45% 45%;
+  animation:floatBalloon linear forwards;
+  cursor:pointer;z-index:4;
+}
+.balloon::after{
+  content:"";
+  position:absolute;bottom:-20px;left:50%;
+  width:2px;height:20px;background:#fff;
+  transform:translateX(-50%);
+}
+@keyframes floatBalloon{
+  to{transform:translateY(-120vh);}
+}
+.pop{animation:pop .3s ease forwards;}
+@keyframes pop{
+  to{transform:scale(1.8);opacity:0;}
+}
+.pop-emoji{
+  position:fixed;font-size:22px;pointer-events:none;
+  animation:burst 1.4s ease forwards;z-index:5;
+}
+@keyframes burst{
+  to{transform:translate(var(--x),var(--y)) scale(1.4);opacity:0;}
+}
+
+/* 💌 CARD */
 .card{
   width:90%;max-width:520px;
   background:var(--box-bg);backdrop-filter:blur(18px);
@@ -83,29 +116,6 @@ section{
 .card button{
   padding:14px 34px;border-radius:40px;border:none;
   background:var(--accent);color:#fff;font-size:1.05rem;
-}
-
-/* 🎈 BALLOONS */
-.balloon{
-  position:fixed;bottom:-120px;width:60px;height:80px;
-  background:radial-gradient(circle at 30% 30%, #fff, #ff7aa2);
-  border-radius:50% 50% 45% 45%;
-  animation:floatBalloon linear forwards;
-  cursor:pointer;z-index:4;
-}
-.balloon::after{
-  content:"";position:absolute;bottom:-20px;left:50%;
-  width:2px;height:20px;background:#fff;transform:translateX(-50%);
-}
-@keyframes floatBalloon{to{transform:translateY(-120vh);}}
-.pop{animation:pop .3s ease forwards;}
-@keyframes pop{to{transform:scale(1.8);opacity:0;}}
-.pop-emoji{
-  position:fixed;font-size:22px;pointer-events:none;
-  animation:burst 1.4s ease forwards;z-index:5;
-}
-@keyframes burst{
-  to{transform:translate(var(--x),var(--y)) scale(1.4);opacity:0;}
 }
 
 /* 🧻 PAPER REVEAL */
@@ -124,13 +134,27 @@ section{
   transform:translateX(-50%);opacity:0;font-size:1.3rem;
 }
 
-/* 🎞️ GIFS */
-.gif-slider{display:flex;transition:transform 1s ease;}
-.gif-slider img{
-  width:100%;height:360px;object-fit:cover;border-radius:30px;
-  opacity:.45;transform:scale(.9);transition:.8s;
+/* 🎞️ GIF SLIDER */
+.slider-wrap{
+  width:90%;max-width:600px;overflow:hidden;
 }
-.gif-slider img.active{opacity:1;transform:scale(1);}
+.gif-slider{
+  display:flex;
+  transition:transform 1s ease;
+}
+.gif-slider img{
+  min-width:100%;
+  height:360px;
+  object-fit:cover;
+  border-radius:30px;
+  opacity:.45;
+  transform:scale(.9);
+  transition:.8s;
+}
+.gif-slider img.active{
+  opacity:1;
+  transform:scale(1);
+}
 </style>
 </head>
 
@@ -143,13 +167,15 @@ section{
 <div class="music-box">
   <div class="music-left">
     <img src="songcover.jpg">
-    <button onclick="togglePlay()" id="playBtn">▶</button>
+    <button id="playBtn">▶</button>
   </div>
-  <button class="toggle" onclick="toggleTheme()" id="themeBtn">🌙</button>
+  <button class="toggle" id="themeBtn">🌙</button>
 </div>
 
-<!-- 🎈 BALLOON GAME -->
-<section><h1>Tap the balloons 🎈</h1></section>
+<!-- 🎈 BALLOON SECTION -->
+<section>
+  <h1>Pop the balloons 🎈</h1>
+</section>
 
 <!-- 💌 WISH -->
 <section>
@@ -161,18 +187,18 @@ section{
   </div>
 </section>
 
-<!-- 🧻 PAPER REVEAL -->
+<!-- 🧻 PAPER -->
 <section>
   <div class="reveal">
     <img src="reveal.jpg">
     <div class="paper" id="paper">Drag this slowly 🤍</div>
-    <div class="final-text" id="finalText">This is my favorite part 💖</div>
+    <div class="final-text" id="finalText">You Are Favorite One 💖</div>
   </div>
 </section>
 
 <!-- 🎞️ GIFS -->
 <section>
-  <div style="width:90%;max-width:600px;overflow:hidden">
+  <div class="slider-wrap">
     <div class="gif-slider" id="gifSlider"></div>
   </div>
 </section>
@@ -184,7 +210,7 @@ section{
 <script>
 /* ⭐ STARS */
 for(let i=0;i<80;i++){
-  let s=document.createElement("div");
+  const s=document.createElement("div");
   s.className="star";
   s.style.left=Math.random()*100+"vw";
   s.style.top=Math.random()*100+"vh";
@@ -197,23 +223,26 @@ const audio=document.getElementById("loveSong");
 const playBtn=document.getElementById("playBtn");
 let musicActive=false;
 
-function togglePlay(){
+playBtn.onclick=()=>{
   if(audio.paused){
     audio.currentTime=60;
     audio.play();
     playBtn.innerHTML="⏸";
-    startEmojis();
     musicActive=true;
+    startEmojis();
+    startBalloons();
   }else{
     audio.pause();
     playBtn.innerHTML="▶";
     musicActive=false;
   }
-}
+};
 
 /* ❤️ EMOJIS */
+let emojiTimer=null;
 function startEmojis(){
-  setInterval(()=>{
+  if(emojiTimer) return;
+  emojiTimer=setInterval(()=>{
     if(!musicActive) return;
     const e=document.createElement("div");
     e.className="emoji";
@@ -227,31 +256,39 @@ function startEmojis(){
 }
 
 /* 🎈 BALLOONS */
-setInterval(()=>{
-  if(!musicActive) return;
-  const b=document.createElement("div");
-  b.className="balloon";
-  b.style.left=Math.random()*90+"vw";
-  b.style.animationDuration=10+Math.random()*6+"s";
-  b.onclick=()=>pop(b);
-  document.body.appendChild(b);
-  setTimeout(()=>b.remove(),16000);
-},4500);
+let balloonTimer=null;
+function startBalloons(){
+  if(balloonTimer) return;
+  balloonTimer=setInterval(()=>{
+    if(!musicActive) return;
+    const b=document.createElement("div");
+    b.className="balloon";
+    b.style.left=Math.random()*90+"vw";
+    b.style.animationDuration=10+Math.random()*6+"s";
 
-function pop(b){
-  b.classList.add("pop");
-  const r=b.getBoundingClientRect();
-  for(let i=0;i<6;i++){
-    const e=document.createElement("div");
-    e.className="pop-emoji";
-    e.innerText=["💖","✨","🦋"][Math.floor(Math.random()*3)];
-    e.style.left=r.left+r.width/2+"px";
-    e.style.top=r.top+"px";
-    e.style.setProperty("--x",(Math.random()*160-80)+"px");
-    e.style.setProperty("--y",(Math.random()*160-80)+"px");
-    document.body.appendChild(e);
-    setTimeout(()=>e.remove(),1400);
-  }
+    const popHandler=()=>{
+      b.classList.add("pop");
+      const r=b.getBoundingClientRect();
+      for(let i=0;i<6;i++){
+        const e=document.createElement("div");
+        e.className="pop-emoji";
+        e.innerText=["💖","✨","🦋"][Math.floor(Math.random()*3)];
+        e.style.left=r.left+r.width/2+"px";
+        e.style.top=r.top+"px";
+        e.style.setProperty("--x",(Math.random()*160-80)+"px");
+        e.style.setProperty("--y",(Math.random()*160-80)+"px");
+        document.body.appendChild(e);
+        setTimeout(()=>e.remove(),1400);
+      }
+      setTimeout(()=>b.remove(),300);
+    };
+
+    b.addEventListener("click",popHandler);
+    b.addEventListener("touchstart",popHandler);
+
+    document.body.appendChild(b);
+    setTimeout(()=>b.remove(),16000);
+  },4500);
 }
 
 /* 💌 WISH */
@@ -262,8 +299,8 @@ function showWish(){
 /* 🧻 PAPER DRAG */
 let startX=0;
 const paper=document.getElementById("paper");
-paper.onmousedown=e=>startX=e.clientX;
-document.onmousemove=e=>{
+paper.addEventListener("mousedown",e=>startX=e.clientX);
+document.addEventListener("mousemove",e=>{
   if(!startX) return;
   let dx=e.clientX-startX;
   paper.style.transform=`translateX(${dx}px)`;
@@ -272,33 +309,34 @@ document.onmousemove=e=>{
     document.getElementById("finalText").style.opacity=1;
     startX=0;
   }
-};
-document.onmouseup=()=>startX=0;
-
-/* 🎞 GIFS */
-const gifs=["gif3.gif","gif2.gif","gif5.gif","gif6.gif","gif4.gif","gif1.gif"];
-let gi=0;
-const slider=document.getElementById("gifSlider");
-gifs.forEach(g=>{
-  const i=document.createElement("img");
-  i.src=g;slider.appendChild(i);
 });
-setInterval(()=>{
-  gi=(gi+1)%gifs.length;
-  slider.style.transform=`translateX(-${gi*100}%)`;
-  document.querySelectorAll(".gif-slider img").forEach((g,i)=>{
-    g.classList.toggle("active",i===gi);
-  });
-},4500);
+document.addEventListener("mouseup",()=>startX=0);
 
-/* 🌙 THEME */
-function toggleTheme(){
+/* 🎞️ GIF SLIDER */
+const gifFiles=["gif3.gif","gif2.gif","gif5.gif","gif6.gif","gif4.gif","gif1.gif"];
+const slider=document.getElementById("gifSlider");
+let gi=0;
+
+gifFiles.forEach(g=>{
+  const img=document.createElement("img");
+  img.src=g;
+  slider.appendChild(img);
+});
+const imgs=document.querySelectorAll(".gif-slider img");
+imgs[0].classList.add("active");
+
+setInterval(()=>{
+  gi=(gi+1)%imgs.length;
+  slider.style.transform=`translateX(-${gi*100}%)`;
+  imgs.forEach((img,i)=>img.classList.toggle("active",i===gi));
+},4000);
+
+/* 🌙 NIGHT MODE */
+document.getElementById("themeBtn").onclick=()=>{
   document.body.classList.toggle("night");
-  themeBtn.innerText=document.body.classList.contains("night")?"☀️":"🌙";
-}
+};
 setTimeout(()=>document.body.classList.add("night"),6000);
 </script>
 
 </body>
 </html>
-
